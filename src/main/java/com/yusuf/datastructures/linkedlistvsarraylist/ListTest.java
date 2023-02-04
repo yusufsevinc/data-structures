@@ -6,13 +6,14 @@ import java.util.List;
 
 public class ListTest {
 
-    private static int size = 1000000;
+    private static int size = 10000000;
+    private static int searchIndex = 1000000;
 
     public static void main(String[] args) {
 
         //In this test, prepend.
 //        arrayListInsertion();  // Average for 1 million integers : 257352.0
-        linkedListInsertion(); // Average for 1 million integers : 155.0
+//        linkedListInsertion(); // Average for 1 million integers : 155.0
 
         //In this test, add in the middle.
 //        arrayListInsertion();  // Average for 1 million integers : 24443.0
@@ -24,6 +25,15 @@ public class ListTest {
 //        arrayInsertion(); // Average for 1 million integers : 7.0
 //        arrayListInsertion();  // Average for 1 million integers : 12.0
 //        linkedListInsertion(); // Average for 1 million integers : 155.0
+
+//        arraySearch(size, searchIndex); //size = 10_000_000, searchIndex = 10_000_000 Average Time to search for simple array is 12.0
+//        arrayListSearch(size, searchIndex); //size = 10_000_000, searchIndex = 10_000_000 Average Time to search for ArrayList is 21.0
+//        linkedListSearch(size, searchIndex); //size = 10_000_000, searchIndex = 10_000_000 Average Time to search for LinkedList is 63.0
+
+//        arraySearch(size, searchIndex); //size = 10_000_000, searchIndex = 1_000_000 Average Time to search for simple array is 5.0
+//        arrayListSearch(size, searchIndex); //size = 10_000_000, searchIndex = 1_000_000 Average Time to search for ArrayList is 7.0
+//        linkedListSearch(size, searchIndex); //size = 10_000_000, searchIndex = 1_000_000 Average Time to search for LinkedList is 16.0
+
     }
 
     public static void arrayInsertion() {
@@ -74,5 +84,63 @@ public class ListTest {
         double end = System.currentTimeMillis();
         System.out.println("Time for LinkedList is " + (end - start));
         return lList;
+    }
+
+    public static void arraySearch(int size, int k) {
+        Integer[] sArray = populateArray(size);
+
+        double start = System.currentTimeMillis();
+        for (Integer i : sArray)
+            if (i == k)
+                break;
+        double end = System.currentTimeMillis();
+        System.out.println("Time to search for simple array is " + (end - start));
+    }
+
+    public static void arrayListSearch(int size, int k) {
+        ArrayList<Integer> aList = populateArrayList(size);
+
+        double start = System.currentTimeMillis();
+        for (Integer i : aList)
+            if (i == k)
+                break;
+        double end = System.currentTimeMillis();
+        System.out.println("Time to search for ArrayList is " + (end - start));
+    }
+
+    public static void linkedListSearch(int size, int k) {
+        LinkedList<Integer> lList = populateLinkedList(size);
+
+        double start = System.currentTimeMillis();
+        lList.get(0);
+        for (Integer i : lList)
+            if (i == k)
+                break;
+        double end = System.currentTimeMillis();
+        System.out.println("Time to search for LinkedList is " + (end - start));
+    }
+
+    private static Integer[] populateArray(int size) {
+        Integer[] array = new Integer[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = i;
+        }
+        return array;
+    }
+
+    private static ArrayList populateArrayList(int size) {
+        ArrayList list = new ArrayList(size);
+        for (int i = 0; i < size; i++) {
+            list.add(i);
+        }
+        return list;
+    }
+
+    private static LinkedList populateLinkedList(int size) {
+        LinkedList list = new LinkedList();
+        for (int i = 0; i < size; i++) {
+            list.add(i);
+        }
+        return list;
     }
 }
