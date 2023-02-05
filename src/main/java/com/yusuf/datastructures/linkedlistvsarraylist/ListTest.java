@@ -7,7 +7,7 @@ import java.util.List;
 public class ListTest {
 
     private static int size = 10000000;
-    private static int searchIndex = 1000000;
+    private static int searchIndex = 10000000;
 
     public static void main(String[] args) {
 
@@ -33,6 +33,41 @@ public class ListTest {
 //        arraySearch(size, searchIndex); //size = 10_000_000, searchIndex = 1_000_000 Average Time to search for simple array is 5.0
 //        arrayListSearch(size, searchIndex); //size = 10_000_000, searchIndex = 1_000_000 Average Time to search for ArrayList is 7.0
 //        linkedListSearch(size, searchIndex); //size = 10_000_000, searchIndex = 1_000_000 Average Time to search for LinkedList is 16.0
+
+//        arrayListDelete(size, 0); //size = 10_000_000, searchIndex = 0 Average Time to delete for ArrayList is 9.0
+//        linkedListDelete(size, 0); //size = 10_000_000, searchIndex = 0 Average Time to delete for LinkedList is 0.0
+//        arrayListDelete(size, size - 1); //size = 10_000_000 Average Time to delete for ArrayList is 0.0
+//        linkedListDelete(size,size - 1 ); //size = 10_000_000 Average Time to delete for LinkedList is 0.0
+//
+        /* When removing an element from the middle of an ArrayList in Java, the index of the element to be removed is
+          found, and all elements to the right of the removed element are shifted one position to the left. Then, the
+          size of the ArrayList is decremented. The time complexity of this process may vary based on the size of the
+          ArrayList and the index of the element to be removed, but generally has a time complexity of O(n), where
+          n is the size of the ArrayList.*/
+//        arrayListDelete(size, size / 2); //size = 10_000_000 Average Time to delete for ArrayList is 5.0
+
+        /* To remove an element from the middle of a linked list containing integer values, the following steps can be taken:
+          1- Find the index of the element to be removed from the middle of the linked list.
+          2- Call the "remove" method of the LinkedList class using this index value to remove the element.
+          3- This method will find the node in the linked list based on the given index value and call the "unlink" method
+           to perform the necessary operations to remove the node.
+
+          The necessary operations to remove a node from a linked list are:
+          1- Get the references (next and prev) of the node to be removed.
+          2- If the previous node (prev) exists, change the "next" reference of the previous node to the next node of the node to be removed.
+          3- If the next node (next) exists, change the "prev" reference of the next node to the previous node of the node to be removed.
+          4- Set the references of the node to be removed to null and decrease the size of the linked list.
+
+          The time complexity of removing an element from the middle of a linked list is O(n), where n is the number of
+          elements in the linked list.
+
+          This is because in the worst-case scenario, you need to traverse the entire linked list to find the node with
+          the given index, which takes O(n) time. Once you have found the node, the actual removal operation is a
+          constant-time operation, O(1), as it simply involves updating the references of the neighboring nodes and
+          adjusting the size of the linked list.
+
+          Therefore, the overall time complexity of removing an element from the middle of a linked list is O(n).*/
+//        linkedListDelete(size, size/2); //size = 10_000_000 Average Time to delete for LinkedList is 34.0
 
     }
 
@@ -118,6 +153,24 @@ public class ListTest {
                 break;
         double end = System.currentTimeMillis();
         System.out.println("Time to search for LinkedList is " + (end - start));
+    }
+
+    public static void arrayListDelete(int size, int k) {
+        ArrayList<Integer> aList = populateArrayList(size);
+
+        double start = System.currentTimeMillis();
+        aList.remove(k);
+        double end = System.currentTimeMillis();
+        System.out.println("Time to delete for ArrayList is " + (end - start));
+    }
+
+    public static void linkedListDelete(int size, int k) {
+        LinkedList<Integer> lList = populateLinkedList(size);
+
+        double start = System.currentTimeMillis();
+        lList.remove(k);
+        double end = System.currentTimeMillis();
+        System.out.println("Time to delete for LinkedList is " + (end - start));
     }
 
     private static Integer[] populateArray(int size) {
