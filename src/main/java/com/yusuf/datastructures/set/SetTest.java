@@ -3,15 +3,72 @@ package com.yusuf.datastructures.set;
 import java.util.*;
 
 public class SetTest {
-    private final static int size = 10_000_000;
+    private final static int size = 50_000_000;
+    private final static int deleteElement = 60_000_000;
 
     public static void main(String[] args) {
         /*It may not be accurate to compare them as HashSet , LinkedHashSet and TreeSet serve different uses.*/
 
-        //In this test, Insert at end.
 //        hashSetInsertion(); // Average for 10 million integers : 310.0 , Average for 100 thousand integers : 7.0
 //        linkedHashSetInsertion(); // Average for 10 million integers : 390.0 , Average for 100 thousand integers : 11.0
 //        treeSetInsertion(); // Average for 10 million integers : 1100.0 , Average for 100 thousand integers : 16.0
+
+//        deleteHashSet(deleteElement); //size = 10_000_000 deleteElement = 5_000_000 Average Time to delete for Hashset is 0.0
+//        deleteHashSet(deleteElement); //size = 50_000_000 deleteElement = 25_000_000 Average Time to delete for Hashset is 0.0
+//        deleteLinkedHashSet(deleteElement); //size = 10_000_000 deleteElement = 5_000_000 Average Time to delete for LinkedHashSet is 0.0
+//        deleteLinkedHashSet(deleteElement); //size = 50_000_000 deleteElement = 25_000_000 Average Time to delete for LinkedHashSet is 0.0
+//        deleteTreeSet(deleteElement); //size = 10_000_000 deleteElement = 5_000_000 Average Time to delete for TreeSet is 0.0
+//        deleteTreeSet(deleteElement); //size = 50_000_000 deleteElement = 25_000_000 Average Time to delete for TreeSet is 0.0
+
+
+    }
+
+    public static boolean deleteHashSet(int element) {
+        /*To remove an element in a HashSet, the position of the element is first determined using the hash value
+        calculated with the element's hashCode() method, and then it is directly removed. This process is done in a
+        relatively constant time.*/
+        Set<Integer> integers = populateSet(new HashSet<>(), size);
+        double start = System.currentTimeMillis();
+        boolean remove = integers.remove(element);
+        double end = System.currentTimeMillis();
+        System.out.println("Process: " + remove + " Time to delete for HashSet is " + (end - start));
+        return remove;
+    }
+
+    public static boolean deleteLinkedHashSet(int element) {
+        /*LinkedHashSet is a subset of HashSet that stores elements both in a hash table and in a doubly linked list.
+        LinkedHashSet maintains the order in which the elements are added and tracks the position of an element, unlike
+        HashSet. When an element is deleted, it is first removed from the doubly linked list and then removed from the
+        hash table. This process is done in a relatively constant time.*/
+        Set<Integer> integers = populateSet(new LinkedHashSet<>(), size);
+        double start = System.currentTimeMillis();
+        boolean remove = integers.remove(element);
+        double end = System.currentTimeMillis();
+        System.out.println("Process: " + remove + " Time to delete for LinkedHashSet is " + (end - start));
+        return remove;
+    }
+
+    public static boolean deleteTreeSet(int element) {
+        /*TreeSet stores the elements in a tree structure, which keeps the elements in a sorted order, and uses a placement
+         that puts every element smaller than itself to the left, and every element larger than itself to the right.
+         Insertion, searching, and deletion of elements may require joining, splitting, and rotating operations to
+         maintain the balance of the tree structure. As a result, deletion operations take logarithmic time on average.
+         */
+        Set<Integer> integers = populateSet(new TreeSet<>(), size);
+        double start = System.currentTimeMillis();
+        boolean remove = integers.remove(element);
+        double end = System.currentTimeMillis();
+        System.out.println("Process: " + remove + " Time to delete for TreeSet is " + (end - start));
+        return remove;
+    }
+
+
+    public static Set<Integer> populateSet(Set<Integer> set, int size) {
+        Set<Integer> integers = set;
+        for (int i = 0; i < size; i++) {
+            integers.add(i);
+        }
+        return integers;
     }
 
 
