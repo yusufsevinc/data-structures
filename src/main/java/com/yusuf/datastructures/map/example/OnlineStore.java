@@ -1,4 +1,4 @@
-package com.yusuf.datastructures.map.mapexample;
+package com.yusuf.datastructures.map.example;
 
 import java.util.HashMap;
 import java.util.Iterator;
